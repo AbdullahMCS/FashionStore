@@ -26,9 +26,9 @@ fun LikedScreen(
 ) {
     Scaffold(
         scaffoldState = scaffoldState,
-        bottomBar = {
-            BottomNav(navController = navController)
-        }
+//        bottomBar = {
+//            BottomNav(navController = navController)
+//        }
     ) { innerPadding ->
         LikedScreenContent(modifier = Modifier.padding(innerPadding)/*, onAction = onAction*/)
     }

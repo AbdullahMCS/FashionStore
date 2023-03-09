@@ -46,9 +46,9 @@ fun HomeScreen(
 ) {
     Scaffold(
         scaffoldState = scaffoldState,
-        bottomBar = {
-            BottomNav(navController = navController)
-        }
+//        bottomBar = {
+//            BottomNav(navController = navController)
+//        }
     ) { innerPadding ->
         HomeScreenContent(modifier = Modifier.padding(innerPadding), onAction = onAction)
     }
@@ -335,7 +335,4 @@ private fun GridOfImages(onAction: (actions: HomeScreenActions) -> Unit,) {
 
 sealed class HomeScreenActions {
     object Details : HomeScreenActions()
-    object Search : HomeScreenActions()
-    object Profile : HomeScreenActions()
-    object Liked : HomeScreenActions()
 }

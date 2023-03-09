@@ -26,9 +26,9 @@ fun ProfileScreen(
 ) {
     Scaffold(
         scaffoldState = scaffoldState,
-        bottomBar = {
-            BottomNav(navController = navController)
-        }
+//        bottomBar = {
+//            BottomNav(navController = navController)
+//        }
     ) { innerPadding ->
         ProfileScreenContent(modifier = Modifier.padding(innerPadding)/*, onAction = onAction*/)
     }

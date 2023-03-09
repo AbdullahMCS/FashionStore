@@ -1,5 +1,6 @@
 package com.cyberwalker.fashionstore.login
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -11,11 +12,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -54,7 +57,7 @@ private fun LoginScreenContent(
     val password = remember { mutableStateOf(TextFieldValue()) }
     val passwordVisible = remember { mutableStateOf(false) }
 
-    val state by remember { viewModel.userLoginStatus }.collectAsState()
+    val state = remember { viewModel.userLoginStatus }.collectAsState()
 
     Column(
         modifier = modifier
@@ -105,16 +108,16 @@ private fun LoginScreenContent(
             Button(
                 onClick = {
                     viewModel.login(email.value.text, password.value.text)
-                    when (state) {
+                    when (state.value) {
                         is AuthenticationResult.Success -> {
                             onAction(LoginScreenActions.LoadHome)
                         }
-                        is AuthenticationResult.Error -> {}
-                        is AuthenticationResult.Loading -> {}
+                        is AuthenticationResult.Error -> {  }
+                        is AuthenticationResult.Loading -> {  }
                     }
-//                    Log.d("LoginScreen", "Success: ${state.value is AuthenticationResult.Success}")
-//                    Log.d("LoginScreen", "Error: ${state.value is AuthenticationResult.Error}")
-//                    Log.d("LoginScreen", "Loading: ${state.value is AuthenticationResult.Loading}")
+                    Log.d("LoginScreen", "Success: ${state.value is AuthenticationResult.Success}")
+                    Log.d("LoginScreen", "Error: ${state.value is AuthenticationResult.Error}")
+                    Log.d("LoginScreen", "Loading: ${state.value is AuthenticationResult.Loading}")
                 },
                 colors = ButtonDefaults.buttonColors(backgroundColor = highlight),
                 shape = RoundedCornerShape(12.dp),
@@ -135,7 +138,7 @@ private fun LoginScreenContent(
 
             Button(
                 onClick = {
-                    // viewModel.loginWithGitHub()
+                    //viewModel.loginWithGitHub()
                     onAction(LoginScreenActions.LoadHome)
                 },
                 colors = ButtonDefaults.buttonColors(backgroundColor = highlight),

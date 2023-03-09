@@ -15,11 +15,11 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val firebaseAuth: FirebaseAuth
+    private val firebaseAuth: FirebaseAuth,
 ) : ViewModel() {
 
     // Question: how to initialize firebase with context in viewmodel
-    //private val firebaseAuth = FirebaseAuth.getInstance()
+    // private val firebaseAuth = FirebaseAuth.getInstance()
 
     private val _userLoginStatus =
         MutableStateFlow<AuthenticationResult<AuthResult>>(AuthenticationResult.Loading())
@@ -33,29 +33,33 @@ class LoginViewModel @Inject constructor(
             password,
             onSuccess = {
                 _userLoginStatus.value = AuthenticationResult.Success(it)
-//                Log.d("LoginScreen", "viewmodel success: ${firebaseAuth.currentUser?.email}")
-//                Log.d("LoginScreen", "viewmodel Success: ${userLoginStatus.value is AuthenticationResult.Success}")
-//                Log.d("LoginScreen", "viewmodel Error: ${userLoginStatus.value is AuthenticationResult.Error}")
-//                Log.d("LoginScreen", "viewmodel Loading: ${userLoginStatus.value is AuthenticationResult.Loading}")
+                Log.d("LoginScreen", "viewmodel success: ${firebaseAuth.currentUser?.email}")
+                Log.d("LoginScreen", "viewmodel Success: ${userLoginStatus.value is AuthenticationResult.Success}")
+                Log.d("LoginScreen", "viewmodel Error: ${userLoginStatus.value is AuthenticationResult.Error}")
+                Log.d("LoginScreen", "viewmodel Loading: ${userLoginStatus.value is AuthenticationResult.Loading}")
             },
             onFailure = {
                 _userLoginStatus.value = AuthenticationResult.Error(it?.message)
-//                Log.d("LoginScreen", "viewmodel error: ${firebaseAuth.currentUser?.email}")
+                Log.d("LoginScreen", "viewmodel error: ${firebaseAuth.currentUser?.email}")
             }
         )
     }
 
-    /* Question: commented until I know how to get the context
-    fun loginWithGitHub() {
-        FirebaseAuthentication.loginWithProvider(
-            firebaseAuth,
-            "github.com",
-            onSuccess = {
-                _userLoginStatus.value = AuthenticationResult.Success(it)
-            },
-            onFailure = {
-                _userLoginStatus.value = AuthenticationResult.Error(it?.message)
-            }
-        )
-    } */
+    //Question: commented until I know how to get the context
+//    fun loginWithGitHub() {
+//        FirebaseAuthentication.loginWithProvider(
+//            firebaseAuth,
+//            "github.com",
+//            onSuccess = {
+//                _userLoginStatus.value = AuthenticationResult.Success(it)
+//                Log.d("LoginScreen", "viewmodel Success: ${userLoginStatus.value is AuthenticationResult.Success}")
+//                Log.d("LoginScreen", "viewmodel Error: ${userLoginStatus.value is AuthenticationResult.Error}")
+//                Log.d("LoginScreen", "viewmodel Loading: ${userLoginStatus.value is AuthenticationResult.Loading}")
+//            },
+//            onFailure = {
+//                _userLoginStatus.value = AuthenticationResult.Error(it?.message)
+//                Log.d("LoginScreen", "viewmodel error: ${firebaseAuth.currentUser?.email}")
+//            }
+//        )
+//    }
 }
